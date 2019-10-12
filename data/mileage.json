@@ -1,0 +1,13 @@
+{
+  "initialMileage": 59453,
+  "data": [
+    {
+      "date": "2019-10-10T11:48:00",
+      "octane": 93,
+      "price": 3.299,
+      "gallons": 8.430,
+      "total": 27.81,
+      "mileage": 59744
+    }
+  ]
+}
