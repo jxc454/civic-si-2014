@@ -3,13 +3,14 @@ import Express from 'express'
 import { buildSchema } from 'type-graphql'
 import 'reflect-metadata'
 import { createConnection } from 'typeorm'
+import GasResolver from './resolvers/gas'
 
 const main = async () => {
     await createConnection()
 
     const PORT = 4000
     const schema = await buildSchema({
-        resolvers: []
+        resolvers: [GasResolver]
     })
 
     const apolloServer = new ApolloServer({ schema })
@@ -21,4 +22,8 @@ const main = async () => {
     app.listen(PORT, () => console.log(`listening on port ${PORT}...`))
 }
 
-main().then()
+main()
+    .then()
+    .catch(e => {
+        e.details.forEach(detail => console.log(`ERROR STARTING SERVER: ${detail.toString()}`))
+    })

@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { BaseEntity, Entity, PrimaryColumn } from 'typeorm'
+import {BaseEntity, Entity, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm'
 import {
     Field,
     ID,
@@ -17,14 +17,14 @@ import isUUID = require('validator/lib/isUUID')
 @ObjectType()
 @ArgsType()
 @Entity({ name: 'gas' })
-export class Gas extends BaseEntity {
-    @Field(() => ID)
-    @PrimaryColumn( { type: 'text'})
-    public id: string
+export default class Gas extends BaseEntity {
+    @Field(() => Int)
+    @PrimaryGeneratedColumn( { type: 'bigint'})
+    public id: number
 
-    @Field(() => ID)
-    @Column( { type: 'text'})
-    public carId: string
+    @Field(() => Int)
+    @Column( { type: 'bigint'})
+    public car_id: number
 
     @Field(() => Date)
     @Column( { type: 'timestamp'})

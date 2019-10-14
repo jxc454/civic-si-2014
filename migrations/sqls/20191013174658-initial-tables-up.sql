@@ -1,5 +1,5 @@
 CREATE TABLE cars(
-	id uuid PRIMARY KEY,
+	id bigserial PRIMARY KEY,
 	make text,
 	model text,
 	year integer,
@@ -9,8 +9,8 @@ CREATE TABLE cars(
 );
 
 CREATE TABLE gas(
-	id uuid PRIMARY KEY,
-	car_id uuid REFERENCES cars(id) ON DELETE CASCADE,
+	id bigserial PRIMARY KEY,
+	car_id bigint REFERENCES cars(id) ON DELETE CASCADE,
 	date timestamp,
 	octane smallint,
 	price real,
