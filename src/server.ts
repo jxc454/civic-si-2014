@@ -4,13 +4,14 @@ import { buildSchema } from 'type-graphql'
 import 'reflect-metadata'
 import { createConnection } from 'typeorm'
 import GasResolver from './resolvers/gas'
+import CarResolver from './resolvers/car';
 
 const main = async () => {
     await createConnection()
 
     const PORT = 4000
     const schema = await buildSchema({
-        resolvers: [GasResolver]
+        resolvers: [GasResolver, CarResolver]
     })
 
     const apolloServer = new ApolloServer({ schema })
@@ -25,5 +26,10 @@ const main = async () => {
 main()
     .then()
     .catch(e => {
-        e.details.forEach(detail => console.log(`ERROR STARTING SERVER: ${detail.toString()}`))
+        console.log(`ERROR STARTING SERVER: ${e.toString()}`)
+        e.details
+            ? e.details.forEach(detail =>
+                  console.log(`ERROR STARTING SERVER: ${detail.toString()}`)
+              )
+            : null
     })

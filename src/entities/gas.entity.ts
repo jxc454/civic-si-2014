@@ -11,11 +11,8 @@ import {
     Root,
 } from 'type-graphql'
 import { Column } from 'typeorm'
-import { v4 as uuidv4 } from 'uuid'
-import isUUID = require('validator/lib/isUUID')
 
 @ObjectType()
-@ArgsType()
 @Entity({ name: 'gas' })
 export default class Gas extends BaseEntity {
     @Field(() => Int)
@@ -23,8 +20,8 @@ export default class Gas extends BaseEntity {
     public id: number
 
     @Field(() => Int)
-    @Column( { type: 'bigint'})
-    public car_id: number
+    @Column( { type: 'bigint', name: 'car_id'})
+    public carId: number
 
     @Field(() => Date)
     @Column( { type: 'timestamp'})

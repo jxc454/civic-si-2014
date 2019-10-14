@@ -1,7 +1,6 @@
 import 'reflect-metadata'
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql'
 import Gas from '../entities/gas.entity'
-import { remove } from 'lodash'
 import { getConnection } from 'typeorm'
 import { Min } from 'class-validator'
 
@@ -12,7 +11,6 @@ class AddGasInput {
     public carId: number
 
     @Field()
-    @Min(0)
     public date: Date
 
     @Field()
@@ -34,10 +32,7 @@ class AddGasInput {
 @Resolver(() => Gas)
 export default class GasResolver {
     @Mutation(() => String)
-    public async addGas(
-        @Arg('input')
-        input: AddGasInput
-    ): Promise<string> {
+    public async addGas(@Arg('input') input: AddGasInput): Promise<string> {
         let newRecord = new Gas()
         newRecord.carId = input.carId
         newRecord.date = input.date
@@ -49,15 +44,14 @@ export default class GasResolver {
 
         await getConnection('default')
             .manager.save(newRecord)
-            .then(() => console.log('SAVED'))
-            .catch(e => console.log(`ERROR: ${e.toString()}`))
-        return ''
+            .then(() => console.log('SAVED GAS'))
+        return 'saved, should return ID!'
     }
 
     @Query(() => [Gas!]!)
     public async getGas(
         @Arg('id')
-            id: number
+        id: number
     ): Promise<Gas[]> {
         return Gas.findByIds([id])
     }
