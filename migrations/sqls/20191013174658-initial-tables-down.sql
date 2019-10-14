@@ -1,0 +1,2 @@
+DROP TABLE gas;
+DROP TABLE cars;
