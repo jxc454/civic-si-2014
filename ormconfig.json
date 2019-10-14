@@ -2,9 +2,9 @@
   "type": "postgres",
   "host": "localhost",
   "port": 15432,
-  "username": "baltimore",
-  "password": "baltimore",
-  "database": "baltimore",
+  "username": "cars",
+  "password": "cars",
+  "database": "cars",
   "synchronize": false,
   "logging": false,
   "entities": [
