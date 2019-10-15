@@ -1,12 +1,15 @@
 import 'reflect-metadata'
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import {BaseEntity, Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
 import { Field, Float, Int, ObjectType } from 'type-graphql'
+import Gas from "./gas.entity";
 
 @ObjectType()
 @Entity({ name: 'cars' })
 export default class Car extends BaseEntity {
     @Field(() => Int)
     @PrimaryGeneratedColumn({ type: 'bigint' })
+    @OneToMany(() => Gas, gas => gas.carId)
+    @JoinColumn()
     public id: number
 
     @Field(() => String)

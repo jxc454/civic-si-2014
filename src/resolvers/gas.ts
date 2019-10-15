@@ -1,8 +1,18 @@
 import 'reflect-metadata'
-import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql'
+import {
+    Arg,
+    Field,
+    InputType,
+    Mutation,
+    ObjectType,
+    Query,
+    Resolver,
+} from 'type-graphql'
 import Gas from '../entities/gas.entity'
-import { getConnection } from 'typeorm'
+import { getConnection, getRepository } from 'typeorm'
 import { Min } from 'class-validator'
+import Car from '../entities/car.entity'
+import computeMileage from '../milesPerGallon'
 
 @InputType()
 class AddGasInput {
@@ -24,6 +34,15 @@ class AddGasInput {
 
     @Field()
     public total: number
+
+    @Field()
+    public mileage: number
+}
+
+@ObjectType()
+class MileageByDate {
+    @Field()
+    public date: Date
 
     @Field()
     public mileage: number
@@ -54,5 +73,27 @@ export default class GasResolver {
         id: number
     ): Promise<Gas[]> {
         return Gas.findByIds([id])
+    }
+
+    @Query(() => [MileageByDate!]!)
+    public async getMileageByDate(
+        @Arg('car')
+        carId: number
+    ): Promise<MileageByDate[]> {
+        // get initialMileage for the car
+        const initialMileage = (await Car.findOne({ id: carId })).initialMileage
+
+        // get date, gallons, mileage for the car
+        const res = await Gas.createQueryBuilder('gas')
+            .innerJoin('gas.car', 'car')
+            .where({ carId })
+            .select(['gas.date', 'gas.mileage', 'gas.gallons'])
+            .orderBy('gas.date', 'ASC')
+            .getMany()
+
+        // calculate mpg
+        return computeMileage(initialMileage, res.map(d => {
+            return { date: d.date, gallons: d.gallons, miles: d.mileage }
+        }))
     }
 }
