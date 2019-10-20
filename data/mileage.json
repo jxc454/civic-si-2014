@@ -1,21 +1,26 @@
-{
-  "initialMileage": 59453,
-  "data": [
-    {
-      "date": "2019-10-10T11:48:00",
-      "octane": 93,
-      "price": 3.299,
-      "gallons": 8.430,
-      "total": 27.81,
-      "mileage": 59744
-    },
-    {
-      "date": "2019-10-12T14:22:00",
-      "octane": 93,
-      "price": 2.659,
-      "gallons": 10.782,
-      "total": 28.67,
-      "mileage": 60090
-    }
-  ]
-}
+[
+  {
+    "date": "2019-10-10T11:48:00",
+    "octane": 93,
+    "price": 3.299,
+    "gallons": 8.430,
+    "total": 27.81,
+    "mileage": 59744
+  },
+  {
+    "date": "2019-10-12T14:22:00",
+    "octane": 93,
+    "price": 2.659,
+    "gallons": 10.782,
+    "total": 28.67,
+    "mileage": 60090
+  },
+  {
+    "date": "2019-10-19T09:08:00",
+    "octane": 93,
+    "price": 2.659,
+    "gallons": 10.248,
+    "total": 27.25,
+    "mileage": 60417
+  }
+]
