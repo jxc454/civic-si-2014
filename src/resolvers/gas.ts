@@ -9,7 +9,7 @@ import {
     Resolver,
 } from 'type-graphql'
 import Gas from '../entities/gas.entity'
-import { getConnection, getRepository } from 'typeorm'
+import { getConnection } from 'typeorm'
 import { Min } from 'class-validator'
 import Car from '../entities/car.entity'
 import computeMileage from '../milesPerGallon'

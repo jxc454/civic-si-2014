@@ -1,11 +1,20 @@
 {
   "development": {
     "driver": "pg",
-    "user": "cars",
+    "user": "postgres",
     "password": "cars",
     "host": "localhost",
     "port": 15432,
-    "database": "cars",
+    "database": "postgres",
+    "schema": "cars"
+  },
+  "production": {
+    "driver": "pg",
+    "user": "postgres",
+    "password": { "ENV": "PRODUCTION_PG_PW" },
+    "host": { "ENV": "PRODUCTION_PG_HOST" },
+    "port": 5432,
+    "database": "postgres",
     "schema": "cars"
   }
 }

@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 function computeMileage(
     initialMileage: number,
     gallonsAndMiles: { date: Date, gallons: number, miles: number }[]
@@ -17,7 +19,5 @@ function computeMileage(
         return { date: d[1], mileage: d[0] }
     })
 }
-
-import _ from 'lodash'
 
 export default computeMileage
