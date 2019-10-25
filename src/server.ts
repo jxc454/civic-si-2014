@@ -1,13 +1,13 @@
+import 'reflect-metadata'
 import { ApolloServer } from 'apollo-server-express'
 import Express from 'express'
 import { buildSchema } from 'type-graphql'
-import 'reflect-metadata'
-import { createConnection } from 'typeorm'
 import GasResolver from './resolvers/gas'
 import CarResolver from './resolvers/car';
+import dbConnections from "./database/connection";
 
 const main = async () => {
-    await createConnection()
+    await dbConnections
 
     const PORT = 4000
     const schema = await buildSchema({

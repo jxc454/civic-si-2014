@@ -1,3 +1,4 @@
-import mpg from './milesPerGallon'
+import 'reflect-metadata'
+import dbConnections from "./database/connection";
+import config from 'config'
 
-console.log(mpg)
