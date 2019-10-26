@@ -1,5 +1,6 @@
 MIGRATE_CONFIG=migrations/database.json
 API_IMAGE_NAME=cars-graph-api
+REPO_REGISTRY=767724750718.dkr.ecr.us-east-1.amazonaws.com
 
 .PHONY: cars-db-up
 cars-db-up:
@@ -40,3 +41,12 @@ down:
 
 build-api:
 	docker build -t $(API_IMAGE_NAME) .
+
+.PHONY: push-image
+push-image:
+	docker tag cars-graph-api:latest 767724750718.dkr.ecr.us-east-1.amazonaws.com/$(API_IMAGE_NAME):latest
+	docker push $(REPO_REGISTRY)/$(API_IMAGE_NAME):latest
+
+build-and-push:
+	make build-api
+	make push-image

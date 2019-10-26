@@ -7,4 +7,5 @@ RUN npm install
 COPY . /app
 VOLUME /tmp
 EXPOSE 4000
+# TODO use something other than ./server.js in the npm script (pm2?)
 ENTRYPOINT npm run start-api
