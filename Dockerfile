@@ -1,10 +1,10 @@
 FROM node:12
 WORKDIR /app
-COPY package.json /app
-RUN npm install -g typescript
+COPY package.json Makefile /app/
+RUN npm prune --production
+RUN npm install -g typescript db-migrate
 RUN npm install
-RUN tsc
 COPY . /app
 VOLUME /tmp
-CMD node dist/server.js
 EXPOSE 4000
+ENTRYPOINT npm run start-api

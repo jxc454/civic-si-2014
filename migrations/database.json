@@ -3,8 +3,8 @@
     "driver": "pg",
     "user": "postgres",
     "password": "postgres",
-    "host": "localhost",
-    "port": 15432,
+    "host": { "ENV": "PG_LOCAL_HOST" },
+    "port": 5432,
     "database": "postgres",
     "schema": "public"
   },

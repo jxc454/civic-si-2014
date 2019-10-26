@@ -1,4 +1,5 @@
 MIGRATE_CONFIG=migrations/database.json
+API_IMAGE_NAME=cars-graph-api
 
 .PHONY: cars-db-up
 cars-db-up:
@@ -28,3 +29,14 @@ migrate-up:
 .PHONY: migrate-down
 migrate-down:
 	db-migrate --env production --config $(MIGRATE_CONFIG) down
+
+.PHONY: up
+up:
+	docker-compose up
+
+.PHONY: down
+down:
+	docker-compose down
+
+build-api:
+	docker build -t $(API_IMAGE_NAME) .
