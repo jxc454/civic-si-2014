@@ -6,28 +6,30 @@
   "author": "jxc454",
   "license": "ISC",
   "scripts": {
-    "make:migrate-local": "make migrate-local-up",
+    "migrate-local": "NODE_ENV=development make migrate-up",
+    "migrate-prod": "NODE_ENV=production make migrate-up",
     "clean": "rm -rf dist",
     "build": "tsc",
     "watch:build": "tsc --watch",
     "watch:server": "nodemon './dist/server.js' --watch './dist'",
     "start": "npm-run-all clean build --parallel watch:build watch:server --print-label",
     "start-server": "node './dist/server.js'",
-    "start-api": "npm-run-all make:migrate-local clean build start-server"
+    "start-prod": "npm-run-all migrate-prod clean build start-server"
   },
   "dependencies": {
     "apollo-server-express": "^2.9.4",
+    "apollo-server-lambda": "^2.9.7",
     "class-validator": "^0.10.1",
     "config": "^3.2.3",
+    "db-migrate": "^0.11.6",
+    "db-migrate-pg": "^1.0.0",
     "express": "^4.17.1",
     "graphql": "^14.5.8",
     "lodash": "^4.17.15",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^0.17.5",
     "typeorm": "^0.2.19",
-    "uuid": "^3.3.3",
-    "db-migrate": "^0.11.6",
-    "db-migrate-pg": "^1.0.0"
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.1",

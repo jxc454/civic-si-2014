@@ -30,5 +30,13 @@
     "gallons": 10.537,
     "total": 33.50,
     "mileage": 60747
+  },
+  {
+    "date": "2019-10-31T10:52:13",
+    "octane": 93,
+    "price": 3.659,
+    "gallons": 10.774,
+    "total": 39.42,
+    "mileage": 61101
   }
 ]

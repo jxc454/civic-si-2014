@@ -1,9 +1,10 @@
 {
+  "defaultEnv": {"ENV": "NODE_ENV"},
   "development": {
     "driver": "pg",
     "user": "postgres",
     "password": "postgres",
-    "host": { "ENV": "PG_LOCAL_HOST" },
+    "host": "localhost",
     "port": 5432,
     "database": "postgres",
     "schema": "public"
@@ -11,8 +12,8 @@
   "production": {
     "driver": "pg",
     "user": "postgres",
-    "password": { "ENV": "PRODUCTION_PG_PW" },
-    "host": { "ENV": "PRODUCTION_PG_HOST" },
+    "password": { "ENV": "PG_PRODUCTION_PW" },
+    "host": { "ENV": "PG_PRODUCTION_HOST" },
     "port": 5432,
     "database": "postgres",
     "schema": "public"

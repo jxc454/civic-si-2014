@@ -6,7 +6,7 @@ REPO_REGISTRY=767724750718.dkr.ecr.us-east-1.amazonaws.com
 cars-db-up:
 	docker run \
 		--rm \
-		--publish 15432:5432 \
+		--publish 5432:5432 \
 		-v $(PWD)/migrations\:/docker-entrypoint-initdb.d/migrations \
 		-e POSTGRES_PORT=5432 \
 		-e POSTGRES_USER=postgres \
@@ -15,21 +15,14 @@ cars-db-up:
 		-e PGDATA=/pgdata \
 		postgres
 
-.PHONY: migrate-local-up
-migrate-local-up:
-	db-migrate --env development --config $(MIGRATE_CONFIG) up
-
-.PHONY: migrate-local-down
-migrate-local-down:
-	db-migrate --env development --config $(MIGRATE_CONFIG) down
-
+# db-migrate calls use NODE_ENV value to decide which database.config to use
 .PHONY: migrate-up
 migrate-up:
-	db-migrate --env production --config $(MIGRATE_CONFIG) up
+	db-migrate --config $(MIGRATE_CONFIG) up
 
 .PHONY: migrate-down
 migrate-down:
-	db-migrate --env production --config $(MIGRATE_CONFIG) down
+	db-migrate --config $(MIGRATE_CONFIG) down
 
 .PHONY: up
 up:

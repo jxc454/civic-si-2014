@@ -11,5 +11,6 @@ services:
     image: cars-graph-api
     ports: ["4000:4000"]
     environment:
+      NODE_ENV: development
       PG_LOCAL_HOST: db
     restart: on-failure
