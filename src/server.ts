@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { ApolloServer } from 'apollo-server-lambda'
+import { ApolloServer } from 'apollo-server-express'
 import Express from 'express'
 import { buildSchema } from 'type-graphql'
 import GasResolver from './resolvers/gas'
@@ -16,22 +16,20 @@ const main = async () => {
 
     const apolloServer = new ApolloServer({ schema })
 
-    // const app = Express()
-    //
-    // apolloServer.applyMiddleware({ app })
-    //
-    // app.listen(PORT, () => console.log(`listening on port ${PORT}...`))
+    const app = Express()
 
-    return apolloServer.createHandler()
+    apolloServer.applyMiddleware({ app })
+
+    app.listen(PORT, () => console.log(`listening on port ${PORT}...`))
 }
 
 export default main()
-    // .then()
-    // .catch(e => {
-    //     console.log(`ERROR STARTING SERVER: ${e.toString()}`)
-    //     e.details
-    //         ? e.details.forEach(detail =>
-    //               console.log(`ERROR STARTING SERVER: ${detail.toString()}`)
-    //           )
-    //         : null
-    // })
+    .then()
+    .catch(e => {
+        console.log(`ERROR STARTING SERVER: ${e.toString()}`)
+        e.details
+            ? e.details.forEach(detail =>
+                  console.log(`ERROR STARTING SERVER: ${detail.toString()}`)
+              )
+            : null
+    })

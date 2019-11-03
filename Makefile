@@ -6,6 +6,7 @@ REPO_REGISTRY=767724750718.dkr.ecr.us-east-1.amazonaws.com
 cars-db-up:
 	docker run \
 		--rm \
+		--name cars-db \
 		--publish 5432:5432 \
 		-v $(PWD)/migrations\:/docker-entrypoint-initdb.d/migrations \
 		-e POSTGRES_PORT=5432 \
