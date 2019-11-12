@@ -4,7 +4,7 @@ import Express from 'express'
 import { buildSchema } from 'type-graphql'
 import GasResolver from './resolvers/gas'
 import CarResolver from './resolvers/car';
-import dbConnections from "./database/connection";
+import dbConnections from './database/connection';
 
 const main = async () => {
     await dbConnections
@@ -23,7 +23,7 @@ const main = async () => {
     app.listen(PORT, () => console.log(`listening on port ${PORT}...`))
 }
 
-export default main()
+main()
     .then()
     .catch(e => {
         console.log(`ERROR STARTING SERVER: ${e.toString()}`)
