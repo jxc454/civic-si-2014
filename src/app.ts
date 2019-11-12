@@ -5,16 +5,21 @@ import CarResolver from './resolvers/car'
 import { ApolloServer } from 'apollo-server-express'
 import Express from 'express'
 
-export default async () => {
+const main = async () => {
     await dbConnections
 
+    const PORT = 4000
     const schema = await buildSchema({
-        resolvers: [GasResolver, CarResolver],
+        resolvers: [GasResolver, CarResolver]
     })
 
     const apolloServer = new ApolloServer({ schema })
 
     const app = Express()
 
-    return apolloServer.applyMiddleware({ app })
+    apolloServer.applyMiddleware({ app })
+
+    app.listen(PORT, () => console.log(`listening on port ${PORT}...`))
 }
+
+export default main
