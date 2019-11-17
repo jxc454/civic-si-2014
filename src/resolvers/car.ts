@@ -28,16 +28,8 @@ class AddCarInput {
 export default class CarResolver {
     @Mutation(() => String)
     public async addCar(@Arg('input') input: AddCarInput): Promise<string> {
-        let newCarRecord = new Car()
-        newCarRecord.make = input.make
-        newCarRecord.model = input.model
-        newCarRecord.year = input.year
-        newCarRecord.initialMileage = input.initialMileage
-        newCarRecord.doors = input.doors
-        newCarRecord.purchaseDate = input.purchaseDate
-
         await getConnection('default')
-            .manager.save(newCarRecord)
+            .manager.save(Object.assign(new Car(), input))
             .then(() => console.log('SAVED CAR'))
         return 'saved, should return ID!'
     }

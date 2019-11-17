@@ -44,3 +44,7 @@ push-image:
 build-and-push:
 	make build-api
 	make push-image
+
+.PHONY: deploy-lambda
+deploy-lambda:
+	aws lambda update-function-code --function-name car-log --zip-file fileb://bin/lambda.zip

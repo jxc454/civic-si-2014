@@ -1,11 +1,4 @@
 import 'reflect-metadata'
-import { ApolloServer } from 'apollo-server-express'
-import Express from 'express'
-import { buildSchema } from 'type-graphql'
-import GasResolver from './resolvers/gas'
-import CarResolver from './resolvers/car';
-import dbConnections from './database/connection';
-
 import app from './app'
 
 app()

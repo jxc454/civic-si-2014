@@ -1,59 +1,48 @@
 import 'reflect-metadata'
 import {
     BaseEntity,
+    Column,
     Entity,
     JoinColumn,
-    JoinTable,
     ManyToOne,
-    PrimaryColumn,
     PrimaryGeneratedColumn,
 } from 'typeorm'
-import {
-    Field,
-    ID,
-    ObjectType,
-    Float,
-    Int,
-    ArgsType,
-    FieldResolver,
-    Root,
-} from 'type-graphql'
-import { Column } from 'typeorm'
+import { Field, Float, Int, ObjectType } from 'type-graphql'
 import Car from './car.entity'
 
-@ObjectType()
 @Entity({ name: 'gas' })
+@ObjectType()
 export default class Gas extends BaseEntity {
-    @Field(() => Int)
     @PrimaryGeneratedColumn({ type: 'bigint' })
+    @Field(() => Int)
     public id: number
 
-    @Field(() => Int)
     @Column({ type: 'bigint', name: 'car_id' })
+    @Field(() => Int)
     public carId: number
 
-    @Field(() => Date)
     @Column({ type: 'timestamp' })
+    @Field(() => Date)
     public date: Date
 
-    @Field(() => Float)
     @Column({ type: 'real' })
+    @Field(() => Float)
     public octane: number
 
-    @Field(() => Float)
     @Column({ type: 'real' })
+    @Field(() => Float)
     public price: number
 
-    @Field(() => Float)
     @Column({ type: 'real' })
+    @Field(() => Float)
     public gallons: number
 
-    @Field(() => Float)
     @Column({ type: 'real' })
+    @Field(() => Float)
     public total: number
 
-    @Field(() => Float)
     @Column({ type: 'real' })
+    @Field(() => Float)
     public mileage: number
 
     @Field(() => Car)

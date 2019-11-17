@@ -1,13 +1,24 @@
-// import serverless from 'aws-serverless-express'
-// import server from './server'
-//
-// const lambdaServer = serverless.createServer(server)
-// exports.handler = (event, context) =>
-//     lambdaServer.proxy(lambdaServer, event, context)
+import 'reflect-metadata'
+import { ApolloServer } from 'apollo-server-lambda'
+import schema from './schema'
+import dbConnections from './database/connection'
 
-'use strict'
-const awsServerlessExpress = require('aws-serverless-express')
-const app = require('./server')
-const server = awsServerlessExpress.createServer(app)
+function runApollo(event, context, apolloHandler) {
+    return new Promise((resolve, reject) => {
+        const callback = (error, body) =>
+            error ? reject(error) : resolve(body)
+        apolloHandler(event, context, callback)
+    })
+}
 
-exports.handler = (event, context) => { awsServerlessExpress.proxy(server, event, context) }
+export async function handler(event, context) {
+    await dbConnections
+    const server = new ApolloServer({
+        schema,
+        playground: true,
+        introspection: true,
+    })
+
+    const apolloHandler = server.createHandler({ cors: { origin: '*' } })
+    return await runApollo(event, context, apolloHandler)
+}

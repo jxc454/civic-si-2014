@@ -1,19 +1,19 @@
 import dbConnections from './database/connection'
-import { buildSchema } from 'type-graphql'
-import GasResolver from './resolvers/gas'
-import CarResolver from './resolvers/car'
 import { ApolloServer } from 'apollo-server-express'
 import Express from 'express'
+import schema from './schema'
 
+const PORT = 4000
+
+// TODO refactor once Express is actually needed for something
 const main = async () => {
     await dbConnections
 
-    const PORT = 4000
-    const schema = await buildSchema({
-        resolvers: [GasResolver, CarResolver]
+    const apolloServer = new ApolloServer({
+        schema,
+        playground: true,
+        introspection: true,
     })
-
-    const apolloServer = new ApolloServer({ schema })
 
     const app = Express()
 
