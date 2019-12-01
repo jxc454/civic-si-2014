@@ -8,11 +8,12 @@
     "scripts": {
         "migrate-local": "NODE_ENV=development make migrate-up",
         "migrate-prod": "NODE_ENV=production make migrate-up",
+        "dev-db": "make dev-data",
         "clean": "rm -rf dist && npm cache clean -force",
         "build": "tsc",
         "watch:build": "tsc --watch",
         "watch:server": "nodemon -r dotenv/config './dist/server.js' --watch './dist'",
-        "start": "npm-run-all migrate-local --parallel watch:build watch:server --print-label",
+        "start": "npm-run-all migrate-local dev-db --parallel watch:build watch:server --print-label",
         "start-server": "node './dist/server.js'",
         "start-prod": "npm-run-all migrate-prod clean build start-server",
         "build:zip": "webpack && zip -r ./bin/lambda.zip ./bin/lambda.js"

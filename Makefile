@@ -8,7 +8,7 @@ cars-db-up:
 		--rm \
 		--name cars-db \
 		--publish 5432:5432 \
-		-v $(PWD)/migrations\:/docker-entrypoint-initdb.d/migrations \
+		-v $(PWD)/dev\:/docker-entrypoint-initdb.d/dev \
 		-e POSTGRES_PORT=5432 \
 		-e POSTGRES_USER=postgres \
 		-e POSTGRES_PASSWORD=postgres \
@@ -24,6 +24,15 @@ migrate-up:
 .PHONY: migrate-down
 migrate-down:
 	db-migrate --config $(MIGRATE_CONFIG) down
+
+.PHONY: dev-data
+dev-data:
+	docker exec \
+	-it $(shell docker inspect --format='{{.Id}}' cars-db) \
+	psql \
+	-U postgres \
+	-d postgres \
+	-a -f /docker-entrypoint-initdb.d/dev/cars.sql
 
 .PHONY: up
 up:
