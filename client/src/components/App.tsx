@@ -1,6 +1,8 @@
 import React from 'react'
 import '../styles/index.css'
 import ApolloClient, { gql } from 'apollo-boost'
+import { ApolloProvider } from '@apollo/react-hooks';
+import Mileage from './Mileage';
 
 class App extends React.PureComponent {
     render() {
@@ -30,9 +32,11 @@ class App extends React.PureComponent {
             )
 
         return (
+          <ApolloProvider client={client}>
             <div>
-                <h1>Hello World!</h1>
+                <Mileage />
             </div>
+          </ApolloProvider>
         )
     }
 }

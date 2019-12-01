@@ -8,7 +8,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "webpack-dev-server --mode development --open --hot",
         "build": "webpack --mode production",
-        "check-types": "tsc"
+        "check-types": "tsc",
+        "generate": "graphql-codegen"
     },
     "repository": {
         "type": "git",
@@ -20,15 +21,30 @@
         "url": "https://github.com/jxc454/civic-si-2014/issues"
     },
     "homepage": "https://github.com/jxc454/civic-si-2014#readme",
+    "dependencies": {
+        "@apollo/react-hooks": "^3.1.3",
+        "apollo-boost": "^0.4.4",
+        "graphql": "^14.5.8",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0"
+    },
     "devDependencies": {
+        "@apollo/react-components": "^3.1.3",
+        "@apollo/react-hoc": "^3.1.3",
         "@babel/core": "^7.7.2",
         "@babel/plugin-proposal-class-properties": "^7.7.0",
         "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
         "@babel/preset-env": "^7.7.1",
         "@babel/preset-react": "^7.7.0",
         "@babel/preset-typescript": "^7.7.2",
+        "@graphql-codegen/cli": "^1.9.1",
+        "@graphql-codegen/typescript": "^1.9.1",
+        "@graphql-codegen/typescript-operations": "^1.9.1",
+        "@graphql-codegen/typescript-react-apollo": "^1.9.1",
+        "@types/graphql": "^14.5.0",
         "@types/react": "^16.9.11",
         "@types/react-dom": "^16.9.4",
+        "apollo": "^2.21.1",
         "babel-loader": "^8.0.6",
         "css-loader": "^3.2.0",
         "html-webpack-plugin": "^3.2.0",
@@ -39,12 +55,5 @@
         "webpack": "^4.41.2",
         "webpack-cli": "^3.3.10",
         "webpack-dev-server": "^3.9.0"
-    },
-    "dependencies": {
-        "@apollo/react-hooks": "^3.1.3",
-        "apollo-boost": "^0.4.4",
-        "graphql": "^14.5.8",
-        "react": "^16.12.0",
-        "react-dom": "^16.12.0"
     }
 }

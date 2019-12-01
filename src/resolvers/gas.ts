@@ -1,13 +1,13 @@
 import 'reflect-metadata'
 import {
-    Arg,
+    Arg, Args, ArgsType,
     Field,
-    InputType,
+    InputType, Int,
     Mutation,
     ObjectType,
     Query,
-    Resolver,
-} from 'type-graphql'
+    Resolver
+} from 'type-graphql';
 import Gas from '../entities/gas.entity'
 import { getConnection } from 'typeorm'
 import { Min } from 'class-validator'
@@ -48,6 +48,12 @@ class MileageByDate {
     public mileage: number
 }
 
+@ArgsType()
+class CarId {
+    @Field(() => Int)
+    public carId: number
+}
+
 @Resolver(() => Gas)
 export default class GasResolver {
     @Mutation(() => String)
@@ -77,8 +83,7 @@ export default class GasResolver {
 
     @Query(() => [MileageByDate!]!)
     public async getMileageByDate(
-        @Arg('car')
-        carId: number
+        @Args() { carId }: CarId
     ): Promise<MileageByDate[]> {
         // get initialMileage for the car
         const initialMileage = (await Car.findOne({ id: carId })).initialMileage

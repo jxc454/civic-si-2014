@@ -1,0 +1,6 @@
+query MileageByDate($carId: Int!) {
+	getMileageByDate(carId: $carId) {
+		date
+		mileage
+	}
+}
