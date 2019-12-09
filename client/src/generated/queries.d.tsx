@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import * as React from 'react';
 import * as ApolloReactCommon from '@apollo/react-common';
+import * as React from 'react';
 import * as ApolloReactComponents from '@apollo/react-components';
 import * as ApolloReactHoc from '@apollo/react-hoc';
 import * as ApolloReactHooks from '@apollo/react-hooks';
@@ -100,6 +100,16 @@ export type QuerygetMileageByDateArgs = {
   carId: Scalars['Int']
 };
 
+export type AddGasMutationVariables = {
+  input: AddGasInput
+};
+
+
+export type AddGasMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'addGas'>
+);
+
 export type MileageByDateQueryVariables = {
   carId: Scalars['Int']
 };
@@ -114,6 +124,53 @@ export type MileageByDateQuery = (
 );
 
 
+export const AddGasDocument = gql`
+    mutation AddGas($input: AddGasInput!) {
+  addGas(input: $input)
+}
+    `;
+export type AddGasMutationFn = ApolloReactCommon.MutationFunction<AddGasMutation, AddGasMutationVariables>;
+export type AddGasComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<AddGasMutation, AddGasMutationVariables>, 'mutation'>;
+
+    export const AddGasComponent = (props: AddGasComponentProps) => (
+      <ApolloReactComponents.Mutation<AddGasMutation, AddGasMutationVariables> mutation={AddGasDocument} {...props} />
+    );
+    
+export type AddGasProps<TChildProps = {}> = ApolloReactHoc.MutateProps<AddGasMutation, AddGasMutationVariables> | TChildProps;
+export function withAddGas<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  AddGasMutation,
+  AddGasMutationVariables,
+  AddGasProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, AddGasMutation, AddGasMutationVariables, AddGasProps<TChildProps>>(AddGasDocument, {
+      alias: 'addGas',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useAddGasMutation__
+ *
+ * To run a mutation, you first call `useAddGasMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddGasMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addGasMutation, { data, loading, error }] = useAddGasMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddGasMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddGasMutation, AddGasMutationVariables>) {
+        return ApolloReactHooks.useMutation<AddGasMutation, AddGasMutationVariables>(AddGasDocument, baseOptions);
+      }
+export type AddGasMutationHookResult = ReturnType<typeof useAddGasMutation>;
+export type AddGasMutationResult = ApolloReactCommon.MutationResult<AddGasMutation>;
+export type AddGasMutationOptions = ApolloReactCommon.BaseMutationOptions<AddGasMutation, AddGasMutationVariables>;
 export const MileageByDateDocument = gql`
     query MileageByDate($carId: Int!) {
   getMileageByDate(carId: $carId) {

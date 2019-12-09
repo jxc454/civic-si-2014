@@ -1,18 +1,24 @@
 import 'reflect-metadata'
 import {
-    Arg, Args, ArgsType,
+    Arg,
+    Args,
+    ArgsType,
+    Authorized,
+    Ctx,
     Field,
-    InputType, Int,
+    InputType,
+    Int,
     Mutation,
     ObjectType,
     Query,
-    Resolver
-} from 'type-graphql';
+    Resolver,
+} from 'type-graphql'
 import Gas from '../entities/gas.entity'
 import { getConnection } from 'typeorm'
 import { Min } from 'class-validator'
 import Car from '../entities/car.entity'
 import computeMileage from '../milesPerGallon'
+import { Context } from 'vm'
 
 @InputType()
 class AddGasInput {
@@ -56,6 +62,7 @@ class CarId {
 
 @Resolver(() => Gas)
 export default class GasResolver {
+    @Authorized('ADMIN')
     @Mutation(() => String)
     public async addGas(@Arg('input') input: AddGasInput): Promise<string> {
         let newRecord = new Gas()
@@ -73,6 +80,7 @@ export default class GasResolver {
         return 'saved, should return ID!'
     }
 
+    @Authorized()
     @Query(() => [Gas!]!)
     public async getGas(
         @Arg('id')
@@ -81,8 +89,10 @@ export default class GasResolver {
         return Gas.findByIds([id])
     }
 
+    @Authorized('READ')
     @Query(() => [MileageByDate!]!)
     public async getMileageByDate(
+        @Ctx() ctx: Context,
         @Args() { carId }: CarId
     ): Promise<MileageByDate[]> {
         // get initialMileage for the car
@@ -97,8 +107,11 @@ export default class GasResolver {
             .getMany()
 
         // calculate mpg
-        return computeMileage(initialMileage, res.map(d => {
-            return { date: d.date, gallons: d.gallons, miles: d.mileage }
-        }))
+        return computeMileage(
+            initialMileage,
+            res.map(d => {
+                return { date: d.date, gallons: d.gallons, miles: d.mileage }
+            })
+        )
     }
 }

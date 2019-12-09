@@ -1,0 +1,4 @@
+mutation AddGas($input: AddGasInput!) {
+	addGas(input: $input)
+}
+

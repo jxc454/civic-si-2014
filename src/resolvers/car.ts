@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql'
+import { Arg, Authorized, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getConnection } from 'typeorm'
 import Car from '../entities/car.entity'
 
@@ -26,6 +26,7 @@ class AddCarInput {
 
 @Resolver(() => Car)
 export default class CarResolver {
+    @Authorized(['ADMIN'])
     @Mutation(() => String)
     public async addCar(@Arg('input') input: AddCarInput): Promise<string> {
         await getConnection('default')
@@ -34,6 +35,7 @@ export default class CarResolver {
         return 'saved, should return ID!'
     }
 
+    @Authorized()
     @Query(() => [Car!]!)
     public async getAllCars(): Promise<Car[]> {
         return Car.find({ skip: 0, take: 25 })

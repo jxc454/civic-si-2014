@@ -1,8 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const dotenv = require('dotenv').config({ path: __dirname + '/.env' })
-const webpack = require('webpack'
-)
+const webpack = require('webpack')
+
 module.exports = {
     // webpack will take the files from ./src/index
     entry: './src/index',
@@ -45,5 +45,6 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env': JSON.stringify(dotenv.parsed),
         }),
+        new webpack.DefinePlugin({ CONFIG: JSON.stringify(require('config')) }),
     ],
 }

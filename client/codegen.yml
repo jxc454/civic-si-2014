@@ -4,9 +4,10 @@ config:
   namingConvention: keep
   withHooks: true
 generates:
-  src/generated/queries.d.ts:
+  src/generated/queries.d.tsx:
     documents:
       - src/queries.gql
+      - src/mutations.gql
     plugins:
       - typescript
       - typescript-operations

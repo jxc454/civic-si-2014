@@ -1,0 +1,6 @@
+users:
+  admin:
+    - jameson.cotter@gmail.com
+  read:
+google-client-id: !!null
+google-api-key: !!null
