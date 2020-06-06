@@ -19,7 +19,7 @@
         "build:zip": "webpack && zip -r ./bin/lambda.zip ./bin/lambda.js"
     },
     "dependencies": {
-        "apollo-server-express": "^2.9.4",
+        "apollo-server-express": "^2.14.2",
         "apollo-server-lambda": "^2.9.9",
         "class-validator": "^0.10.1",
         "cors": "^2.8.5",
